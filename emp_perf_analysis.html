@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 import io
 import base64
 
-# 1. Load a sample of the employee data
 data = {
     'employee_id': [f'EMP{i:03}' for i in range(1, 21)],
     'department': ['HR', 'Sales', 'Finance', 'Marketing', 'IT', 'IT', 'Sales', 'Finance', 'HR', 'IT', 
@@ -13,15 +12,11 @@ data = {
     'performance_score': [64, 83, 75, 65, 92, 88, 78, 73, 61, 95, 68, 77, 81, 90, 63, 76, 91, 79, 69, 94]
 }
 df = pd.DataFrame(data)
-
-# 2. Calculate the frequency count for the "IT" department
 it_department_count = df[df['department'] == 'IT'].shape[0]
 
-# 3. Prepare the printed output
 output_text = f"Frequency count for the 'IT' department: {it_department_count}"
 print(output_text)
 
-# 4. Create a histogram (bar chart) showing the distribution of departments
 plt.style.use('seaborn-v0_8-whitegrid')
 fig, ax = plt.subplots(figsize=(10, 6))
 
@@ -34,15 +29,12 @@ ax.set_ylabel('Number of Employees', fontsize=12)
 plt.xticks(rotation=45, ha='right')
 plt.tight_layout()
 
-# Save plot to a PNG in memory
 buf = io.BytesIO()
 plt.savefig(buf, format='png')
 buf.seek(0)
-# Encode image to base64
 image_base64 = base64.b64encode(buf.read()).decode('utf-8')
 buf.close()
 
-# 5. Create and save the HTML file
 html_content = f"""
 <!DOCTYPE html>
 <html lang="en">
@@ -66,11 +58,13 @@ html_content = f"""
     <h2>Department Distribution Visualization</h2>
     <img src="data:image/png;base64,{image_base64}" alt="Department Distribution Chart">
     
+    <hr>
+    <p><em>Verification Email: 24f1001393@ds.study.iitm.ac.in</em></p>
+    
 </body>
 </html>
 """
 
-# Write the HTML content to a file
 file_name = "employee_performance_analysis.html"
 with open(file_name, "w") as f:
     f.write(html_content)
